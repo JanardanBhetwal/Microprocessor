@@ -1,0 +1,17 @@
+    .MODEL SMALL
+    .STACK 32
+.DATA
+    STRING DB 'PROGRAMMING IS FUN$'
+.CODE
+MAIN PROC FAR
+         MOV AX,@DATA
+         MOV DS,AX
+
+         MOV DX,OFFSET STRING
+         MOV AH,09H
+         INT 21H
+
+         MOV AX,4C00H
+         INT 21H
+MAIN ENDP
+    END MAIN
