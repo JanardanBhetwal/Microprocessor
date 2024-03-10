@@ -1,0 +1,39 @@
+TITLE INPUT TEXT FROM USER AND DISPLAY IN THE CLEAR SCREEN
+
+    .MODEL SMALL
+    .STACK 32H
+.DATA
+    MAXLEN DB 50
+    ACTLEN DB ?
+    STRING DB 50 DUP('$')
+.CODE
+MAIN PROC FAR
+         MOV AX,@DATA
+         MOV DS,AX
+
+    ;STRING INPUT
+         LEA DX,MAXLEN
+         MOV AH,0AH
+         INT 21H
+
+    ;REQUEST VIDEOMODE
+         MOV AH,00H
+         MOV AL,03H
+         INT 10H
+
+    ;SET CURSOR AT CENTER
+         MOV AH,02H
+         MOV DH,12
+         MOV DL,30
+         INT 10H
+
+    ;DISPLAY STRING
+         MOV AH,09H
+         LEA DX,STRING
+         INT 21H
+
+
+         MOV AX,4C00H
+         INT 21H
+MAIN ENDP
+    END MAIN
